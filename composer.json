@@ -1,0 +1,32 @@
+{
+    "name": "globalis/wp-cubi-robo",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "description":"Default Robo commands for wp-cubi",
+    "homepage": "https://github.com/globalis-ms/wp-cubi-robo",
+    "authors": [
+        {
+            "name": "Pierre Dargham",
+            "homepage": "https://github.com/pierre-dargham/"
+        },
+        {
+            "name": "GLOBALIS media systems",
+            "homepage": "https://www.globalis-ms.com/"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/globalis-ms/wp-cubi-robo/issues"
+    },
+    "require": {
+        "globalis/robo-task": "^1.0.4"
+    },
+    "require-dev": {
+        "rmccue/requests" : "~1.6",
+        "squizlabs/php_codesniffer": "^2.5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Globalis\\WP\\Cubi\\Robo\\": "src"
+        }
+    }
+}
