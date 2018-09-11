@@ -1,9 +1,9 @@
 {
-    "name": "globalis/wp-cubi-robo",
+    "name": "globalis/wp-cubi-robo-globalis",
     "type": "library",
     "license": "GPL-2.0-or-later",
     "description":"Default Robo commands for wp-cubi",
-    "homepage": "https://github.com/globalis-ms/wp-cubi-robo",
+    "homepage": "https://github.com/globalis-ms/wp-cubi-robo-globalis",
     "authors": [
         {
             "name": "Pierre Dargham",
