@@ -4,13 +4,13 @@ namespace Globalis\WP\Cubi\Robo;
 
 trait BuildAssetsTrait
 {
-    private $dirAssetsSrc    = 'assets';
-    private $dirAssetsDest   = 'dist';
-    private $dirStyles       = 'styles';
-    private $dirScripts      = 'scripts';
-    private $dirImages       = 'images';
-    private $dirFonts        = 'fonts';
-    private $scriptsFormat   = ['normal', 'minified'];
+    protected $dirAssetsSrc    = 'assets';
+    protected $dirAssetsDest   = 'dist';
+    protected $dirStyles       = 'styles';
+    protected $dirScripts      = 'scripts';
+    protected $dirImages       = 'images';
+    protected $dirFonts        = 'fonts';
+    protected $scriptsFormat   = ['normal', 'minified'];
     protected $stylesFormat  = [
                                     'normal'   => 'Leafo\ScssPhp\Formatter\Expanded',
                                     'minified' => 'Leafo\ScssPhp\Formatter\Compressed',
