@@ -29,7 +29,7 @@ trait BuildAssetsTrait
      */
     public function buildAssets($environment = 'development', $root = \RoboFile::ROOT, array $options = ['disable-minify' => false, 'skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false])
     {
-        $this->configure($environment);
+        // $this->configure($environment);
 
         if (true === $options['disable-minify']) {
             $format = 'normal';
@@ -56,7 +56,7 @@ trait BuildAssetsTrait
 
     protected function getDirTheme($root)
     {
-        return $root . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . \RoboFile::THEME_SLUG;
+        return $root . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . \RoboFile::THEME_SLUG;
     }
 
     protected function getDirAssets($from = 'src', $root = false)

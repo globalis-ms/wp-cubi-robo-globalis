@@ -23,10 +23,7 @@
     "require-dev": {
         "rmccue/requests" : "~1.6",
         "squizlabs/php_codesniffer": "^2.5.1",
-        "leafo/scssphp": "^0.7.5",
-        "patchwork/jsqueeze": "^2.0",
-        "natxet/CssMin": "^3.0",
-        "henrikbjorn/lurker": "^1.2"
+        "leafo/scssphp": "^0.7.7"
     },
     "autoload": {
         "psr-4": {
