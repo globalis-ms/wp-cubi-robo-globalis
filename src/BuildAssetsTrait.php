@@ -29,8 +29,6 @@ trait BuildAssetsTrait
      */
     public function buildAssets($environment = 'development', $root = \RoboFile::ROOT, array $options = ['disable-minify' => false, 'skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false])
     {
-        // $this->configure($environment);
-
         if (true === $options['disable-minify']) {
             $format = 'normal';
         } else {
@@ -102,35 +100,35 @@ trait BuildAssetsTrait
      * @option bool   $skip-images  Skip optimizing images or not. Default false (optimize them)
      * @option bool   $skip-fonts   Skip moving fonts or not. Default false (moves them)
      */
-    public function themeWatch(array $options = ['skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false])
+    public function themeWatch(array $options = ['skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false, 'environment' => 'development'])
     {
-        $this->configure($environment);
         $watch = $this->taskWatch();
         $root  = \RoboFile::ROOT;
+        $env   = $options['environment'];
 
         if (!$options['skip-styles']) {
-            $this->buildStyles('normal');
-            $watch->monitor($this->getDirStyles($root), function() {
-                $this->buildStyles('normal');
+            $this->buildStyles($root);
+            $watch->monitor($this->getDirStyles('src', $root), function() use ($root, $env) {
+                $this->buildStyles($root, 'minified', $env);
             });
         }
 
         if (!$options['skip-scripts']) {
-            $this->buildScripts('normal');
-            $watch->monitor($this->getDirScripts($root), function() {
-                $this->buildScripts('normal');
+            $this->buildScripts($root);
+            $watch->monitor($this->getDirScripts('src', $root), function() use ($root) {
+                $this->buildScripts($root, 'minified');
             });
         }
 
         if (!$options['skip-images']) {
-            $watch->monitor($this->getDirImages($root), function() {
-                $this->buildImages();
+            $watch->monitor($this->getDirImages('src', $root), function() use ($root) {
+                $this->buildImages($root);
             });
         }
 
         if (!$options['skip-fonts']) {
-            $watch->monitor($this->getDirFonts($root), function() {
-                $this->buildFonts();
+            $watch->monitor($this->getDirFonts('src', $root), function() use ($root) {
+                $this->buildFonts($root);
             });
         }
 
@@ -172,7 +170,7 @@ trait BuildAssetsTrait
      *
      * @param boolean $format
      */
-    protected function buildStyles($root = false, $format = false, $env)
+    protected function buildStyles($root = false, $format = false, $env = false)
     {
         $src       = $this->getDirStyles('src', $root);
         $dest      = $this->getDirStyles('dest', $root);
