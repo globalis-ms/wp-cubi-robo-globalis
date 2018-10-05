@@ -203,8 +203,8 @@ trait BuildAssetsTrait
                 $mapOptions  = [
                     'sourceMapWriteTo'  => $dest . DIRECTORY_SEPARATOR . str_replace("/", "_", $scriptName) . ".map",
                     'sourceMapURL'      => str_replace("/", "_", $scriptName) . ".map",
-                    'sourceMapFilename' => $scriptName,
-                    'sourceMapBasepath' => '/',
+                    'sourceMapFilename' => $destFile,
+                    'sourceMapBasepath' => $src,
                     'sourceRoot'        => '..' . DIRECTORY_SEPARATOR .'..' . DIRECTORY_SEPARATOR . $this->dirAssetsSrc . DIRECTORY_SEPARATOR . $this->dirStyles . DIRECTORY_SEPARATOR,
                 ];
 
