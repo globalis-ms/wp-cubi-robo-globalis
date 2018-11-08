@@ -108,26 +108,26 @@ trait BuildAssetsTrait
 
         if (!$options['skip-styles']) {
             $this->buildStyles($root);
-            $watch->monitor($this->getDirStyles('src', $root), function() use ($root, $env) {
+            $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $env) {
                 $this->buildStyles($root, 'minified', $env);
             });
         }
 
         if (!$options['skip-scripts']) {
             $this->buildScripts($root);
-            $watch->monitor($this->getDirScripts('src', $root), function() use ($root) {
+            $watch->monitor($this->getDirScripts('src', $root), function () use ($root) {
                 $this->buildScripts($root, 'minified');
             });
         }
 
         if (!$options['skip-images']) {
-            $watch->monitor($this->getDirImages('src', $root), function() use ($root) {
+            $watch->monitor($this->getDirImages('src', $root), function () use ($root) {
                 $this->buildImages($root);
             });
         }
 
         if (!$options['skip-fonts']) {
-            $watch->monitor($this->getDirFonts('src', $root), function() use ($root) {
+            $watch->monitor($this->getDirFonts('src', $root), function () use ($root) {
                 $this->buildFonts($root);
             });
         }
@@ -217,7 +217,6 @@ trait BuildAssetsTrait
                  ->compiler([$this, 'scssphp'], $map_args)
                  ->run();
         }
-
     }
 
     /**
@@ -262,7 +261,6 @@ trait BuildAssetsTrait
         }
 
         if (!empty($filesToBuild)) {
-
             foreach ($filesToBuild as $scriptName => $files) {
                 $destFile = $dest . DIRECTORY_SEPARATOR . $scriptName . '.js';
                 $this->taskConcat($files)->to($destFile)->run();
@@ -351,5 +349,4 @@ trait BuildAssetsTrait
     {
         file_put_contents($this->getDirAssets('dest', $root) . DIRECTORY_SEPARATOR . 'version', date('YmdHis'));
     }
-
 }
