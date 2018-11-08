@@ -2,9 +2,13 @@
     "name": "globalis/wp-cubi-robo-globalis",
     "type": "library",
     "license": "GPL-2.0-or-later",
-    "description":"Default Robo commands for wp-cubi",
+    "description":"Globalis Robo commands for wp-cubi",
     "homepage": "https://github.com/globalis-ms/wp-cubi-robo-globalis",
     "authors": [
+        {
+            "name": "David Daugreilh",
+            "homepage": "https://github.com/davddo/"
+        },
         {
             "name": "Pierre Dargham",
             "homepage": "https://github.com/pierre-dargham/"
@@ -15,15 +19,16 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/globalis-ms/wp-cubi-robo/issues"
+        "issues": "https://github.com/globalis-ms/wp-cubi-robo-globalis/issues"
     },
     "require": {
-        "globalis/robo-task": "^1.0.4"
+        "globalis/robo-task": "^1.0.4",
+        "leafo/scssphp": "^0.7.7",
+        "patchwork/jsqueeze" : "^2.0.5",
+        "henrikbjorn/lurker": "^1.2.0"
     },
     "require-dev": {
-        "rmccue/requests" : "~1.6",
-        "squizlabs/php_codesniffer": "^2.5.1",
-        "leafo/scssphp": "^0.7.7"
+        "squizlabs/php_codesniffer": "^2.5.1"
     },
     "autoload": {
         "psr-4": {
