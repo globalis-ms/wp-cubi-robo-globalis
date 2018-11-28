@@ -7,3 +7,52 @@
 Globalis Robo commands for wp-cubi
 
 [![wp-cubi](https://github.com/globalis-ms/wp-cubi/raw/master/.resources/wp-cubi-500x175.jpg)](https://github.com/globalis-ms/wp-cubi/)
+
+## Configuration
+
+### Robofile constants
+
+* `THEME_SLUG`: Your theme slug
+
+### Theme structure
+
+```bash
+├── assets
+│   ├── styles
+│   │   ├── *.scss
+│   │   ├── **/_*.scss
+│   ├── scripts
+│   │   ├── _*.map
+│   │   ├── **/*.js
+│   ├── images
+│   └── fonts
+├── dist
+└── ....
+```
+
+**Important :** you have to include files with relative path into yours *.scss/*.map file. One map will create one final file in the building process.
+
+*Sample:*
+
+assets/styles/main.scss
+```css
+@import "common/variables";
+@import "layouts/pages";
+@import "layouts/posts";
+...
+```
+assets/scripts/_main.map
+```bash
+global.js
+tools/modals.js
+...
+```
+
+After build :
+
+* `dist/styles/main.css`
+* `dist/scripts/main.js`
+
+## Commands
+
+* `./vendor/bin/robo build:assets [--skip-styles --skip-scripts --skip-images --skip-fonts]`: Build all assets from src folder to dist folder (sass, js, fonts, images)
