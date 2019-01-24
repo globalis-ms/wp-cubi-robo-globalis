@@ -13,7 +13,7 @@ trait BuildAssetsTrait
     protected $scriptsFormat   = ['normal', 'minified'];
     protected $stylesFormat  = [
                                     'normal'   => 'Leafo\ScssPhp\Formatter\Expanded',
-                                    'minified' => 'Leafo\ScssPhp\Formatter\Compressed',
+                                    'minified' => 'Leafo\ScssPhp\Formatter\Crunched',
                                 ];
 
     /**
