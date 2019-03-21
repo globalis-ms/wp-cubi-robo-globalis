@@ -16,6 +16,8 @@ trait BuildAssetsTrait
                                     'minified' => 'Leafo\ScssPhp\Formatter\Crunched',
                                 ];
 
+    protected $assetsVersion = null;
+
     /**
      * Builds the theme
      *
@@ -216,6 +218,13 @@ trait BuildAssetsTrait
                  ->setImportPaths($src)
                  ->compiler([$this, 'scssphp'], $map_args)
                  ->run();
+
+            $suffixe      = sprintf('ver=%s&', $this->assetsVersion());
+            $search       = ['.eot?', '.ttf?', '.woff?', '.svg?'];
+            $replace      = ['.eot?' . $suffixe, '.ttf?' . $suffixe, '.woff?' . $suffixe, '.svg?' . $suffixe];
+            $file_content = file_get_contents($destFile);
+            $file_content = str_replace($search, $replace, $file_content);
+            file_put_contents($destFile, $file_content);
         }
     }
 
@@ -339,6 +348,14 @@ trait BuildAssetsTrait
         $this->taskCopyDir([$src => $dest])->run();
     }
 
+    protected function assetsVersion()
+    {
+        if (empty($this->assetsVersion)) {
+            $this->assetsVersion = date('YmdHis');
+        }
+        return $this->assetsVersion;
+    }
+
     /**
      * Updates the theme version automatically to disable cache on new modifications
      * Currently made for WordPress using the theme version in its style.css
@@ -347,6 +364,6 @@ trait BuildAssetsTrait
      */
     protected function updateAssetsVersion($root)
     {
-        file_put_contents($this->getDirAssets('dest', $root) . DIRECTORY_SEPARATOR . 'version', date('YmdHis'));
+        file_put_contents($this->getDirAssets('dest', $root) . DIRECTORY_SEPARATOR . 'version', $this->assetsVersion());
     }
 }
