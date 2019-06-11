@@ -258,7 +258,7 @@ trait BuildAssetsTrait
             if (file_exists($map)) {
                 $content = file_get_contents($map);
 
-                preg_match_all('/[\w-\/.]*.js/', $content, $matches);
+                preg_match_all('/[\w\-\/.]*.js/', $content, $matches);
                 if (isset($matches[0]) && !empty($matches[0])) {
                     foreach ($matches[0] as $match) {
                         if (file_exists($src . DIRECTORY_SEPARATOR . $match)) {
