@@ -207,7 +207,7 @@ trait BuildAssetsTrait
                     'sourceMapURL'      => str_replace("/", "_", $scriptName) . ".map",
                     'sourceMapFilename' => $destFile,
                     'sourceMapBasepath' => $src,
-                    'sourceRoot'        => '..' . DIRECTORY_SEPARATOR .'..' . DIRECTORY_SEPARATOR . $this->dirAssetsSrc . DIRECTORY_SEPARATOR . $this->dirStyles . DIRECTORY_SEPARATOR,
+                    'sourceRoot'        => '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->dirAssetsSrc . DIRECTORY_SEPARATOR . $this->dirStyles . DIRECTORY_SEPARATOR,
                 ];
 
                 $map_args = ['sourceMap' => \Leafo\ScssPhp\Compiler::SOURCE_MAP_FILE, 'sourceMapOptions'  => $mapOptions];
