@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2357cb4daa2a47db2afe2ee0e0cda53",
+    "content-hash": "649155738ca9db644646b1c99e834b0c",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1226,6 +1226,41 @@
             "time": "2017-05-10T09:20:27+00:00"
         },
         {
+            "name": "padaliyajay/php-autoprefixer",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/padaliyajay/php-autoprefixer.git",
+                "reference": "0f36b7cfbd71d25836bcb9f4b58c09252ca4e9ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/padaliyajay/php-autoprefixer/zipball/0f36b7cfbd71d25836bcb9f4b58c09252ca4e9ec",
+                "reference": "0f36b7cfbd71d25836bcb9f4b58c09252ca4e9ec",
+                "shasum": ""
+            },
+            "require": {
+                "sabberworm/php-css-parser": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Padaliyajay\\PHPAutoprefixer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jay padaliya"
+                }
+            ],
+            "description": "CSS Autoprefixer written in pure PHP.",
+            "time": "2019-03-06T12:49:40+00:00"
+        },
+        {
             "name": "patchwork/jsqueeze",
             "version": "v2.0.5",
             "source": {
@@ -1414,6 +1449,51 @@
                 "psr-3"
             ],
             "time": "2020-03-23T09:12:05+00:00"
+        },
+        {
+            "name": "sabberworm/php-css-parser",
+            "version": "8.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
+                "reference": "d217848e1396ef962fb1997cf3e2421acba7f796"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/d217848e1396ef962fb1997cf3e2421acba7f796",
+                "reference": "d217848e1396ef962fb1997cf3e2421acba7f796",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "codacy/coverage": "^1.4",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sabberworm\\CSS": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Schweikert"
+                }
+            ],
+            "description": "Parser for CSS Files written in PHP",
+            "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "keywords": [
+                "css",
+                "parser",
+                "stylesheet"
+            ],
+            "time": "2020-06-01T09:10:00+00:00"
         },
         {
             "name": "scssphp/scssphp",

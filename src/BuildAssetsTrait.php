@@ -2,6 +2,8 @@
 
 namespace Globalis\WP\Cubi\Robo;
 
+use Padaliyajay\PHPAutoprefixer\Autoprefixer;
+
 trait BuildAssetsTrait
 {
     protected $dirAssetsSrc    = 'assets';
@@ -223,6 +225,8 @@ trait BuildAssetsTrait
             $search       = ['.eot?', '.ttf?', '.woff?', '.svg?'];
             $replace      = ['.eot?' . $suffixe, '.ttf?' . $suffixe, '.woff?' . $suffixe, '.svg?' . $suffixe];
             $file_content = file_get_contents($destFile);
+            $autoprefixer = new Autoprefixer($file_content);
+            $file_content = $autoprefixer->compile();
             $file_content = str_replace($search, $replace, $file_content);
             file_put_contents($destFile, $file_content);
         }
