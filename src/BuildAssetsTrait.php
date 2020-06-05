@@ -12,8 +12,8 @@ trait BuildAssetsTrait
     protected $dirFonts        = 'fonts';
     protected $scriptsFormat   = ['normal', 'minified'];
     protected $stylesFormat  = [
-                                    'normal'   => 'Leafo\ScssPhp\Formatter\Expanded',
-                                    'minified' => 'Leafo\ScssPhp\Formatter\Crunched',
+                                    'normal'   => 'ScssPhp\ScssPhp\Formatter\Expanded',
+                                    'minified' => 'ScssPhp\ScssPhp\Formatter\Crunched',
                                 ];
 
     protected $assetsVersion = null;
@@ -140,12 +140,12 @@ trait BuildAssetsTrait
 
     public function scssphp($file, $compilerOptions)
     {
-        if (!class_exists('\Leafo\ScssPhp\Compiler')) {
-            return Result::errorMissingPackage($this, 'scssphp', 'leafo/scssphp');
+        if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
+            return Result::errorMissingPackage($this, 'scssphp', 'scssphp/scssphp');
         }
 
         $scssCode = file_get_contents($file);
-        $scss = new \Leafo\ScssPhp\Compiler();
+        $scss = new \ScssPhp\ScssPhp\Compiler();
 
         // set options for the scssphp compiler
         if (isset($compilerOptions['importDirs'])) {
@@ -210,7 +210,7 @@ trait BuildAssetsTrait
                     'sourceRoot'        => '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->dirAssetsSrc . DIRECTORY_SEPARATOR . $this->dirStyles . DIRECTORY_SEPARATOR,
                 ];
 
-                $map_args = ['sourceMap' => \Leafo\ScssPhp\Compiler::SOURCE_MAP_FILE, 'sourceMapOptions'  => $mapOptions];
+                $map_args = ['sourceMap' => \ScssPhp\ScssPhp\Compiler::SOURCE_MAP_FILE, 'sourceMapOptions'  => $mapOptions];
             }
 
             $this->taskScss([$map => $destFile])
