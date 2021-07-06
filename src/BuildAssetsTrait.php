@@ -67,7 +67,6 @@ trait BuildAssetsTrait
             case 'dest':
                 $dir = $this->dirAssetsDest;
                 break;
-            
             case 'src':
             default:
                 $dir = $this->dirAssetsSrc;
