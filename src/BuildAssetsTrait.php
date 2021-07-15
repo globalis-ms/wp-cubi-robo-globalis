@@ -2,8 +2,6 @@
 
 namespace Globalis\WP\Cubi\Robo;
 
-use Padaliyajay\PHPAutoprefixer\Autoprefixer;
-
 trait BuildAssetsTrait
 {
     protected $dirAssetsSrc    = 'assets';
@@ -13,11 +11,10 @@ trait BuildAssetsTrait
     protected $dirImages       = 'images';
     protected $dirFonts        = 'fonts';
     protected $scriptsFormat   = ['normal', 'minified'];
-    protected $stylesFormat  = [
-                                    'normal'   => 'ScssPhp\ScssPhp\Formatter\Expanded',
-                                    'minified' => 'ScssPhp\ScssPhp\Formatter\Crunched',
-                                ];
-
+    protected $stylesFormat    = [
+        'normal'   => \ScssPhp\ScssPhp\OutputStyle::EXPANDED,
+        'minified' => \ScssPhp\ScssPhp\OutputStyle::COMPRESSED,
+    ];
     protected $assetsVersion = null;
 
     /**
@@ -139,7 +136,7 @@ trait BuildAssetsTrait
         $watch->run();
     }
 
-    public function scssphp($file, $compilerOptions)
+    public function scssphpGlobalis($file, $compilerOptions)
     {
         if (!class_exists('\ScssPhp\ScssPhp\Compiler')) {
             return Result::errorMissingPackage($this, 'scssphp', 'scssphp/scssphp');
@@ -154,7 +151,7 @@ trait BuildAssetsTrait
         }
 
         if (isset($compilerOptions['formatter'])) {
-            $scss->setFormatter($compilerOptions['formatter']);
+            $scss->setOutputStyle($compilerOptions['formatter']);
         }
 
         if (isset($compilerOptions['sourceMap'])) {
@@ -165,7 +162,7 @@ trait BuildAssetsTrait
             $scss->setSourceMapOptions($compilerOptions['sourceMapOptions']);
         }
 
-        return $scss->compile($scssCode);
+        return ($scss->compileString($scssCode))->getCss();
     }
 
     /**
@@ -211,21 +208,19 @@ trait BuildAssetsTrait
                     'sourceRoot'        => '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . $this->dirAssetsSrc . DIRECTORY_SEPARATOR . $this->dirStyles . DIRECTORY_SEPARATOR,
                 ];
 
-                $map_args = ['sourceMap' => \ScssPhp\ScssPhp\Compiler::SOURCE_MAP_FILE, 'sourceMapOptions'  => $mapOptions];
+                $map_args = ['sourceMap' => \ScssPhp\ScssPhp\Compiler::SOURCE_MAP_INLINE, 'sourceMapOptions'  => $mapOptions];
             }
 
             $this->taskScss([$map => $destFile])
                  ->setFormatter($formatter)
                  ->setImportPaths($src)
-                 ->compiler([$this, 'scssphp'], $map_args)
+                 ->compiler([$this, 'scssphpGlobalis'], $map_args)
                  ->run();
 
             $suffixe      = sprintf('ver=%s&', $this->assetsVersion());
             $search       = ['.eot?', '.ttf?', '.woff?', '.svg?'];
             $replace      = ['.eot?' . $suffixe, '.ttf?' . $suffixe, '.woff?' . $suffixe, '.svg?' . $suffixe];
             $file_content = file_get_contents($destFile);
-            $autoprefixer = new Autoprefixer($file_content);
-            $file_content = $autoprefixer->compile();
             $file_content = str_replace($search, $replace, $file_content);
             file_put_contents($destFile, $file_content);
         }
