@@ -2,6 +2,8 @@
 
 namespace Globalis\WP\Cubi\Robo;
 
+use Robo\Result;
+
 trait BuildAssetsTrait
 {
     protected $dirAssetsSrc    = 'assets';
