@@ -100,23 +100,29 @@ trait BuildAssetsTrait
      * @option bool   $skip-images  Skip optimizing images or not. Default false (optimize them)
      * @option bool   $skip-fonts   Skip moving fonts or not. Default false (moves them)
      */
-    public function themeWatch(array $options = ['skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false, 'environment' => 'development'])
+    public function themeWatch(array $options = ['disable-minify' => false, 'skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false, 'environment' => 'development'])
     {
         $watch = $this->taskWatch();
         $root  = \RoboFile::ROOT;
         $env   = $options['environment'];
 
+        if (true === $options['disable-minify']) {
+            $format = 'normal';
+        } else {
+            $format = 'minified';
+        }
+
         if (!$options['skip-styles']) {
             $this->buildStyles($root);
-            $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $env) {
-                $this->buildStyles($root, 'minified', $env);
+            $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $format, $env) {
+                $this->buildStyles($root, $format, $env);
             });
         }
 
         if (!$options['skip-scripts']) {
-            $this->buildScripts($root);
-            $watch->monitor($this->getDirScripts('src', $root), function () use ($root) {
-                $this->buildScripts($root, 'minified');
+            $this->buildScripts($root, $format);
+            $watch->monitor($this->getDirScripts('src', $root), function () use ($root, $format) {
+                $this->buildScripts($root, $format);
             });
         }
 
