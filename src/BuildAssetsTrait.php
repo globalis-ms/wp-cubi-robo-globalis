@@ -100,23 +100,29 @@ trait BuildAssetsTrait
      * @option bool   $skip-images  Skip optimizing images or not. Default false (optimize them)
      * @option bool   $skip-fonts   Skip moving fonts or not. Default false (moves them)
      */
-    public function themeWatch(array $options = ['skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false, 'environment' => 'development'])
+    public function themeWatch(array $options = ['disable-minify' => false, 'skip-styles' => false, 'skip-scripts' => false, 'skip-images' => false, 'skip-fonts' => false, 'environment' => 'development'])
     {
         $watch = $this->taskWatch();
         $root  = \RoboFile::ROOT;
         $env   = $options['environment'];
 
+        if (true === $options['disable-minify']) {
+            $format = 'normal';
+        } else {
+            $format = 'minified';
+        }
+
         if (!$options['skip-styles']) {
             $this->buildStyles($root);
             $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $env) {
-                $this->buildStyles($root, 'minified', $env);
+                $this->buildStyles($root, $format, $env);
             });
         }
 
         if (!$options['skip-scripts']) {
             $this->buildScripts($root);
             $watch->monitor($this->getDirScripts('src', $root), function () use ($root) {
-                $this->buildScripts($root, 'minified');
+                $this->buildScripts($root, $format);
             });
         }
 
@@ -165,6 +171,17 @@ trait BuildAssetsTrait
         $scssCode = '$assets-version: "' . $this->assetsVersion() . '";' . PHP_EOL . $scssCode;
 
         return ($scss->compileString($scssCode))->getCss();
+    }
+
+    public function minifyJSGlobalis($file)
+    {
+        if (!class_exists('\JShrink\Minifier')) {
+            return Result::errorMissingPackage($this, 'Minifier', 'JShrink');
+        }
+
+        $js = file_get_contents($file);
+
+        return \JShrink\Minifier::minify($js, ['flaggedComments' => false]);
     }
 
     /**
@@ -268,7 +285,10 @@ trait BuildAssetsTrait
                 $this->taskConcat($files)->to($destFile)->run();
 
                 if ($format && in_array($format, $this->scriptsFormat) && $format !== 'normal') {
-                    $this->taskMinify($destFile)->run();
+                    $this->taskMinify($destFile)
+                         ->compiler([$this, 'minifyJSGlobalis'])
+                         ->run();
+
                     $this->_remove($destFile);
                     $minFilename = str_replace('.js', '.min.js', $destFile);
                     $this->taskFilesystemStack()->rename($minFilename, $destFile)->run();

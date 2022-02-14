@@ -24,7 +24,7 @@
     "require": {
         "php": ">=7.4",
         "globalis/robo-task": "^2.0.1",
-        "patchwork/jsqueeze" : "^2.0.5",
+        "tedivm/jshrink": "^1.4.0",
         "scssphp/scssphp": "^1.6",
         "totten/lurkerlite": "^1.3"
     },
