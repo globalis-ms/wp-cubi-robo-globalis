@@ -310,7 +310,9 @@ trait BuildAssetsTrait
 
                 if ($format && in_array($format, $this->scriptsFormat) && $format !== 'normal') {
                     $this->minifyJSGlobalis($destFile);
+                    var_dump('passed successfully');
                     $minFilename = str_replace('.js', '.min.js', $destFile);
+                    var_dump($minFilename);
                     $this->taskFilesystemStack()->rename($minFilename, $destFile)->run();
                 }
             }
