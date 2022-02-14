@@ -198,16 +198,12 @@ trait BuildAssetsTrait
             $size_after = $size_before;
         }
 
-        $dst = $file . '.part';
-        $write_result = file_put_contents($dst, $minified);
+        $write_result = file_put_contents($file, $minified);
 
         if (false === $write_result) {
-            @unlink($dst);
+            @unlink($file);
             return Result::error($this, 'File write failed.');
         }
-
-        // Cannot be cross-volume; should always succeed.
-        @rename($dst, $file);
 
         return true;
     }
@@ -314,8 +310,6 @@ trait BuildAssetsTrait
 
                 if ($format && in_array($format, $this->scriptsFormat) && $format !== 'normal') {
                     $this->minifyJSGlobalis($destFile);
-
-                    $this->_remove($destFile);
                     $minFilename = str_replace('.js', '.min.js', $destFile);
                     $this->taskFilesystemStack()->rename($minFilename, $destFile)->run();
                 }
