@@ -173,15 +173,56 @@ trait BuildAssetsTrait
         return ($scss->compileString($scssCode))->getCss();
     }
 
-    public function minifyJSGlobalis($file)
+    protected function minifyJSGlobalis($file)
     {
         if (!class_exists('\JShrink\Minifier')) {
             return Result::errorMissingPackage($this, 'Minifier', 'JShrink');
         }
 
+        if (file_exists($file) && !is_writable($file)) {
+            return Result::error($this, 'Destination already exists and cannot be overwritten.');
+        }
+
         $js = file_get_contents($file);
 
-        return \JShrink\Minifier::minify($js, ['flaggedComments' => false]);
+        $size_before = strlen($js);
+        $minified = \JShrink\Minifier::minify($js, ['flaggedComments' => false]);
+
+        $size_after = strlen($minified);
+
+        // Minification did not reduce file size, so use original file.
+        if ($size_after > $size_before) {
+            $minified = $js;
+            $size_after = $size_before;
+        }
+
+        $dst = $file . '.part';
+        $write_result = file_put_contents($dst, $minified);
+
+        if (false === $write_result) {
+            @unlink($dst);
+            return Result::error($this, 'File write failed.');
+        }
+
+        // Cannot be cross-volume; should always succeed.
+        @rename($dst, $file);
+        if ($size_before === 0) {
+            $minified_percent = 0;
+        } else {
+            $minified_percent = number_format(100 - ($size_after / $size_before * 100), 1);
+        }
+
+        $this->printTaskSuccess('Wrote {filepath}', ['filepath' => $file]);
+
+        $context = [
+            'bytes' => $this->formatBytes($size_after),
+            'reduction' => $this->formatBytes(($size_before - $size_after)),
+            'percentage' => $minified_percent,
+        ];
+
+        $this->printTaskSuccess('Wrote {bytes} (reduced by {reduction} / {percentage})', $context);
+
+        return Result::success($this, 'Asset minified.');
     }
 
     /**
@@ -285,9 +326,7 @@ trait BuildAssetsTrait
                 $this->taskConcat($files)->to($destFile)->run();
 
                 if ($format && in_array($format, $this->scriptsFormat) && $format !== 'normal') {
-                    $this->taskMinify($destFile)
-                         ->compiler([$this, 'minifyJSGlobalis'])
-                         ->run();
+                    $this->minifyJSGlobalis($destFile);
 
                     $this->_remove($destFile);
                     $minFilename = str_replace('.js', '.min.js', $destFile);
