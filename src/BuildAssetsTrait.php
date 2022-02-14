@@ -209,7 +209,7 @@ trait BuildAssetsTrait
         // Cannot be cross-volume; should always succeed.
         @rename($dst, $file);
 
-        return Result::success($this, 'Asset minified.');
+        return true;
     }
 
     /**
