@@ -114,14 +114,14 @@ trait BuildAssetsTrait
 
         if (!$options['skip-styles']) {
             $this->buildStyles($root);
-            $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $env) {
+            $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $format, $env) {
                 $this->buildStyles($root, $format, $env);
             });
         }
 
         if (!$options['skip-scripts']) {
             $this->buildScripts($root);
-            $watch->monitor($this->getDirScripts('src', $root), function () use ($root) {
+            $watch->monitor($this->getDirScripts('src', $root), function () use ($root, $format) {
                 $this->buildScripts($root, $format);
             });
         }
