@@ -18,19 +18,13 @@
             "homepage": "https://www.globalis-ms.com/"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/alenore/jsqueeze"
-        }
-    ],
     "support": {
         "issues": "https://github.com/globalis-ms/wp-cubi-robo-globalis/issues"
     },
     "require": {
         "php": ">=7.4",
         "globalis/robo-task": "^2.0.1",
-        "patchwork/jsqueeze" : "^2.0.6",
+        "alenore/jsqueeze" : "^2.0.6",
         "scssphp/scssphp": "^1.6",
         "totten/lurkerlite": "^1.3"
     },
