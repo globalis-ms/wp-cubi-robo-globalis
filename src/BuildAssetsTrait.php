@@ -206,21 +206,6 @@ trait BuildAssetsTrait
 
         // Cannot be cross-volume; should always succeed.
         @rename($dst, $file);
-        if ($size_before === 0) {
-            $minified_percent = 0;
-        } else {
-            $minified_percent = number_format(100 - ($size_after / $size_before * 100), 1);
-        }
-
-        $this->printTaskSuccess('Wrote {filepath}', ['filepath' => $file]);
-
-        $context = [
-            'bytes' => $this->formatBytes($size_after),
-            'reduction' => $this->formatBytes(($size_before - $size_after)),
-            'percentage' => $minified_percent,
-        ];
-
-        $this->printTaskSuccess('Wrote {bytes} (reduced by {reduction} / {percentage})', $context);
 
         return Result::success($this, 'Asset minified.');
     }
