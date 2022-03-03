@@ -24,7 +24,7 @@
     "require": {
         "php": ">=7.4",
         "globalis/robo-task": "^2.0.1",
-        "alenore/jsqueeze" : "^2.0.6",
+        "alenore/jsqueeze" : "^2.0.7",
         "scssphp/scssphp": "^1.6",
         "totten/lurkerlite": "^1.3"
     },
