@@ -127,12 +127,14 @@ trait BuildAssetsTrait
         }
 
         if (!$options['skip-images']) {
+            $this->buildImages($root);
             $watch->monitor($this->getDirImages('src', $root), function () use ($root) {
                 $this->buildImages($root);
             });
         }
 
         if (!$options['skip-fonts']) {
+            $this->buildFonts($root);
             $watch->monitor($this->getDirFonts('src', $root), function () use ($root) {
                 $this->buildFonts($root);
             });
