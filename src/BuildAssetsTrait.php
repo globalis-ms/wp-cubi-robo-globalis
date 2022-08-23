@@ -2,6 +2,8 @@
 
 namespace Globalis\WP\Cubi\Robo;
 
+use Lurker\Event\FilesystemEvent;
+
 trait BuildAssetsTrait
 {
     protected $dirAssetsSrc    = 'assets';
@@ -116,28 +118,28 @@ trait BuildAssetsTrait
             $this->buildStyles($root);
             $watch->monitor($this->getDirStyles('src', $root), function () use ($root, $format, $env) {
                 $this->buildStyles($root, $format, $env);
-            });
+            }, FilesystemEvent::ALL);
         }
 
         if (!$options['skip-scripts']) {
             $this->buildScripts($root, $format);
             $watch->monitor($this->getDirScripts('src', $root), function () use ($root, $format) {
                 $this->buildScripts($root, $format);
-            });
+            }, FilesystemEvent::ALL);
         }
 
         if (!$options['skip-images']) {
             $this->buildImages($root);
             $watch->monitor($this->getDirImages('src', $root), function () use ($root) {
                 $this->buildImages($root);
-            });
+            }, FilesystemEvent::ALL);
         }
 
         if (!$options['skip-fonts']) {
             $this->buildFonts($root);
             $watch->monitor($this->getDirFonts('src', $root), function () use ($root) {
                 $this->buildFonts($root);
-            });
+            }, FilesystemEvent::ALL);
         }
 
         $this->updateAssetsVersion($root);
