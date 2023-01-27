@@ -7,3 +7,7 @@
 Globalis Robo commands for wp-cubi
 
 [![wp-cubi](https://github.com/globalis-ms/wp-cubi/raw/master/.resources/wp-cubi-500x175.jpg)](https://github.com/globalis-ms/wp-cubi/)
+
+## Development
+
+Before opening pull requests, please check and apply project coding standards with `./vendor/bin/phpcs .` and/or `./vendor/bin/phpcbf .`
