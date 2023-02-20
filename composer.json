@@ -22,9 +22,10 @@
         "issues": "https://github.com/globalis-ms/wp-cubi-robo-globalis/issues"
     },
     "require": {
-        "php": ">=8.0 <8.2",
-        "globalis/robo-task": "^2.0.1",
-        "alenore/jsqueeze" : "^2.0.7",
+        "php": ">=8.0 <8.3",
+        "consolidation/robo": "3.x-dev@dev",
+        "globalis/robo-task": "^2.2.0",
+        "tedivm/jshrink": "^1.4",
         "scssphp/scssphp": "^1.6",
         "totten/lurkerlite": "^1.3"
     },

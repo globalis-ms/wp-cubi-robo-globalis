@@ -278,10 +278,9 @@ trait BuildAssetsTrait
                 $this->taskConcat($files)->to($destFile)->run();
 
                 if ($format && in_array($format, $this->scriptsFormat) && $format !== 'normal') {
-                    $this->taskMinify($destFile)->run();
-                    $this->_remove($destFile);
-                    $minFilename = str_replace('.js', '.min.js', $destFile);
-                    $this->taskFilesystemStack()->rename($minFilename, $destFile)->run();
+                    $js = file_get_contents($destFile);
+                    $js = \JShrink\Minifier::minify($js);
+                    file_put_contents($destFile, $js);
                 }
             }
         }
