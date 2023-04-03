@@ -3,6 +3,7 @@
 namespace Globalis\WP\Cubi\Robo;
 
 use Lurker\Event\FilesystemEvent;
+use Padaliyajay\PHPAutoprefixer\Autoprefixer;
 
 trait BuildAssetsTrait
 {
@@ -228,6 +229,11 @@ trait BuildAssetsTrait
                  ->setImportPaths($src)
                  ->compiler([$this, 'scssphpGlobalis'], $map_args)
                  ->run();
+
+            $unprefixed_css = file_get_contents($destFile);
+            $autoprefixer = new Autoprefixer($unprefixed_css);
+            $prefixed_css = $autoprefixer->compile();
+            file_put_contents($destFile, $prefixed_css);
         }
     }
 
