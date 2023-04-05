@@ -232,7 +232,7 @@ trait BuildAssetsTrait
 
             $unprefixed_css = file_get_contents($destFile);
             $autoprefixer = new Autoprefixer($unprefixed_css);
-            $prefixed_css = $autoprefixer->compile();
+            $prefixed_css = $autoprefixer->compile($format !== "minified");
             file_put_contents($destFile, $prefixed_css);
         }
     }
